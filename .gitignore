@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Lib.Model/bin
+/Lib.Model/obj
+/Lib.Repository/bin
+/Lib.Repository/obj
+/wb_tech_chalenge/.vs
+/wb_tech_chalenge/bin
+/wb_tech_chalenge/obj
