@@ -1,5 +1,6 @@
 using System;
 using Lib.Repository;
+using Lib.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,8 @@ namespace wb_tech_chalenge
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
 
             services.AddDbContext<Context>(options =>
                     options.UseMySql(Configuration.GetConnectionString("Default"),
@@ -31,7 +33,10 @@ namespace wb_tech_chalenge
                     .MigrationsAssembly("Lib.Repository")
                     ));
 
+            services.AddSession();
+
             services.AddTransient<IDataService, DataService>();
+            services.AddTransient<IContaRepository, ContaRepository>();
 
         }
 
@@ -50,6 +55,7 @@ namespace wb_tech_chalenge
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
@@ -59,7 +65,7 @@ namespace wb_tech_chalenge
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Conta}/{action=Index}/{id?}");
             });
 
             serviceProvider.GetService<IDataService>().ExecutaMigrations().Wait();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lib.Model.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Lib.Model
@@ -8,7 +9,7 @@ namespace Lib.Model
         #region Construtores
         private Conta()
         {
-
+            Movimentacoes = new List<Movimentacao>();
         }
 
         public Conta(string agencia, string numero)
@@ -47,14 +48,14 @@ namespace Lib.Model
         private void validarValorMinimo(decimal valor)
         {
             if (valor <= 0)
-                throw new Exception("Somente são permitidos valores maiores que 0");
+                throw new MovimentacaoInvalidaException("Somente são permitidos valores maiores que 0");
         }
         private void validarSaldoMinimo(decimal valor)
         {
             validarValorMinimo(valor);
 
             if (Saldo < valor)
-                throw new Exception("Saldo insuficiente.");
+                throw new MovimentacaoInvalidaException("Saldo insuficiente.");
         }
         #endregion
 

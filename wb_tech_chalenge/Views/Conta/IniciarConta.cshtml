@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+    string msgErro = ViewData["msgErro"] as string;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Conta digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="@Url.Content("~/lib/fontawesome-free/css/all.min.css")">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/lib/icheck-bootstrap/icheck-bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/adminlte.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/lib/toastr/toastr.min.css")">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="card">
+            <div class="card-body login-card-body">
+                <form method="post">
+                    <div class="input-group mb-3">
+                        <input type="number" name="agencia" class="form-control" placeholder="Agencia" maxlength="4" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="number" name="numero" class="form-control" placeholder="Número" required maxlength="6">
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Acessar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="@Url.Content("~/lib/jquery/jquery.min.js")"></script>
+    <script src="@Url.Content("~/lib/toastr/toastr.min.js")"></script>
+</body>
+</html>
+@if(!string.IsNullOrEmpty(msgErro))
+{
+<script>
+    toastr.error('@msgErro')
+</script>
+}

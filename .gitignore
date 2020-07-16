@@ -10,3 +10,6 @@
 /wb_tech_chalenge/.vs
 /wb_tech_chalenge/bin
 /wb_tech_chalenge/obj
+/Model.Tests/bin
+/Model.Tests/obj
+/wb_tech_chalenge/wb_tech_chalenge.csproj.user

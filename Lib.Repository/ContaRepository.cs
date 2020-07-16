@@ -18,9 +18,13 @@ namespace Lib.Repository
             _dbSet = _context.Set<Conta>();
         }
 
-        public async Task<Conta> CarregarConta(string agencia, string numero)
+        public async Task<Conta> CarregarConta(string agencia, string numero, bool comHistoricoMovimentacoes = false)
         {
-            return await _dbSet.Where(c => c.Agencia == agencia && c.Numero == numero).SingleOrDefaultAsync();
+            var query = _dbSet.Where(c => c.Agencia == agencia && c.Numero == numero);
+            if (comHistoricoMovimentacoes)
+                query = query.Include(c => c.Movimentacoes);
+            
+            return await query.SingleOrDefaultAsync();
         }
 
         public async Task CriarConta(string agencia, string numero)

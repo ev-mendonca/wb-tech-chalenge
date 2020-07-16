@@ -1,0 +1,85 @@
+﻿@model ResponseModel
+@{
+    ViewData["Title"] = "Conta Digital";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Depósito</h3>
+                </div>
+                <form asp-action="EfetuarDeposito" method="post">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Use o campo abaixo para depositar dinheiro em sua conta.
+                        </p>
+                        <input class="form-control" type="number" step="0.01" name="valor" required/>
+                    </div>
+                    <div class="card-footer">
+                        <input class="btn btn-block bg-gradient-primary" type="submit" value="Efetuar Depósito" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Saque</h3>
+                </div>
+                <form asp-action="EfetuarSaque" method="post">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Use o campo abaixo para sacar o valor indicado da sua conta.
+                        </p>
+                        <input class="form-control" type="number" step="0.01" name="valor" required/>
+                    </div>
+                    <div class="card-footer">
+                        <input class="btn btn-block bg-gradient-primary" type="submit" value="Efetuar Saque" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Pagamento</h3>
+                </div>
+                <form asp-action="EfetuarPagamento" method="post">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Utilize o campo abaixo para executar um pagamento no valor indicado.
+                        </p>
+                        <input class="form-control" type="number" step="0.01" name="valor" required />
+                    </div>
+                    <div class="card-footer">
+                        <input class="btn btn-block bg-gradient-primary" type="submit" value="Efetuar Saque" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h5 class="card-title m-0">Histórico de Transações</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <ul>
+                        @foreach (var item in Model.Conta.Movimentacoes.OrderByDescending(c => c.Horario))
+                        {
+
+                            <li class="@(item.Tipo == Lib.Model.enumTipoMovimentacao.Deposito ? "text-success" : "text-danger")">@item.Tipo feito em @item.Horario.ToString("dd/MM/yyyy HH:mm") no valor de R$@(item.Valor.ToString("0.00"))</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

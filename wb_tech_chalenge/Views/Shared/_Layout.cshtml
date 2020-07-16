@@ -1,48 +1,59 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@model ResponseModel
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - wb_tech_chalenge</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="@Url.Content("~/lib/fontawesome-free/css/all.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/adminlte.min.css")">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/lib/toastr/toastr.min.css")">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">wb_tech_chalenge</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-sm-10">
+                            <h1 class="m-0 text-dark">Conta digital Ag. @Model.Conta.Agencia - Nº @Model.Conta.Numero - <strong>Saldo: R$@Model.Conta.Saldo.ToString("0.00")</strong></h1>
+                        </div>
+                        <div class="col-sm-2">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a asp-action="AlterarConta" asp-controller="Conta">Alterar Conta</a></li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - wb_tech_chalenge - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="content">
+                @RenderBody()
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    </div>
+    <script src="@Url.Content("~/lib/jquery/jquery.min.js")"></script>
+    <script src="@Url.Content("~/lib/bootstrap/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/js/adminlte.min.js")"></script>
+    <script src="@Url.Content("~/lib/toastr/toastr.min.js")"></script>
 </body>
 </html>
+@if (!string.IsNullOrEmpty(Model.Mensagem))
+{
+    if (Model.Sucesso)
+    {
+        <script>
+            toastr.success('@Model.Mensagem');
+        </script>
+    }
+    else
+    {
+        <script>
+            toastr.error('@Model.Mensagem');
+        </script>
+    }
+
+}

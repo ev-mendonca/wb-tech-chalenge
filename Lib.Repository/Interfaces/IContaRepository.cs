@@ -9,7 +9,7 @@ namespace Lib.Repository.Interfaces
     public interface IContaRepository
     {
         Task CriarConta(string agencia, string numero);
-        Task<Conta> CarregarConta(string agencia, string numero);
+        Task<Conta> CarregarConta(string agencia, string numero, bool comHistoricoDeMovimentacoes = false);
         Task EfetuarSaque(string agencia, string numero, decimal valor);
         Task EfetuarDeposito(string agencia, string numero, decimal valor);
         Task EfetuarPagamento(string agencia, string numero, decimal valor);
